@@ -1,0 +1,303 @@
+{
+  "config": {
+    "currency": "$",
+    "period": {
+      "months": ["2026-05", "2026-06", "2026-07", "2026-08"],
+      "labels": { "2026-05": "MAI", "2026-06": "JUIN", "2026-07": "JUILLET", "2026-08": "AOÛT" }
+    },
+    "family": { "members": ["Paterne", "Grace"], "children": 2 }
+  },
+  "categories": [
+    {
+      "id": "charges-fixes", "label": "Charges Fixes", "icon": "Home",
+      "type": "expense", "isFixed": true, "color": "#1e40af",
+      "items": [
+        { "id": "loyer", "label": "Loyer", "isFixed": true },
+        { "id": "electricite", "label": "Électricité / HYDRO", "isFixed": true },
+        { "id": "tel-s25", "label": "S25 Ultra + Fibre", "isFixed": true },
+        { "id": "tel-16pro", "label": "iPhone 16 Pro", "isFixed": true },
+        { "id": "felix-ricard", "label": "Felix-Ricard", "isFixed": true },
+        { "id": "lessives", "label": "Lessives", "isFixed": false },
+        { "id": "grace-perso", "label": "GRACE (perso)", "isFixed": true },
+        { "id": "paterne-perso", "label": "PATERNE (perso)", "isFixed": true },
+        { "id": "netflix", "label": "Netflix", "isFixed": true }
+      ]
+    },
+    {
+      "id": "transports", "label": "Transports", "icon": "Car",
+      "type": "expense", "isFixed": false, "color": "#7c3aed",
+      "items": [
+        { "id": "carburant", "label": "Carburant", "isFixed": false },
+        { "id": "assurance-auto", "label": "Assurance Auto", "isFixed": true },
+        { "id": "bus-grace", "label": "Carte de Bus (Grace)", "isFixed": false }
+      ]
+    },
+    {
+      "id": "nourriture", "label": "Nourriture", "icon": "ShoppingCart",
+      "type": "expense", "isFixed": false, "color": "#059669", "trackItems": true,
+      "items": [
+        { "id": "costco", "label": "Costco", "isFixed": false },
+        { "id": "maxi", "label": "Maxi / No Frills", "isFixed": false },
+        { "id": "autres-epicerie", "label": "Autres épiceries", "isFixed": false }
+      ]
+    },
+    {
+      "id": "maison", "label": "Maison & Ménage", "icon": "Package",
+      "type": "expense", "isFixed": false, "color": "#b45309",
+      "items": [
+        { "id": "materiaux", "label": "Matériaux / Ménage", "isFixed": false },
+        { "id": "autres-maison", "label": "Autres", "isFixed": false }
+      ]
+    },
+    {
+      "id": "sante", "label": "Santé", "icon": "Heart",
+      "type": "expense", "isFixed": false, "color": "#e11d48",
+      "items": [
+        { "id": "consultations", "label": "Consultations médicales", "isFixed": false },
+        { "id": "pharmacie", "label": "Pharmacie", "isFixed": false },
+        { "id": "dentiste", "label": "Dentiste", "isFixed": false }
+      ]
+    },
+    {
+      "id": "vetements", "label": "Vêtements", "icon": "Shirt",
+      "type": "expense", "isFixed": false, "color": "#db2777",
+      "items": [
+        { "id": "adultes", "label": "Adultes", "isFixed": false },
+        { "id": "enfants", "label": "Enfants", "isFixed": false }
+      ]
+    },
+    {
+      "id": "enfants", "label": "Enfants & École", "icon": "GraduationCap",
+      "type": "expense", "isFixed": false, "color": "#f59e0b",
+      "items": [
+        { "id": "cantine", "label": "Cantine scolaire", "isFixed": false },
+        { "id": "activites", "label": "Activités extrascolaires", "isFixed": false },
+        { "id": "frais-scolaires", "label": "Frais scolaires", "isFixed": false }
+      ]
+    },
+    {
+      "id": "engagements", "label": "Engagements / Prêts", "icon": "Handshake",
+      "type": "expense", "isFixed": true, "color": "#dc2626",
+      "items": [
+        { "id": "france", "label": "France", "isFixed": true },
+        { "id": "stephane", "label": "Stéphane", "isFixed": true },
+        { "id": "parents-grace", "label": "Parents Grace", "isFixed": true },
+        { "id": "parents-paterne", "label": "Parents Paterne", "isFixed": true }
+      ]
+    },
+    {
+      "id": "loisirs", "label": "Loisirs", "icon": "Smile",
+      "type": "expense", "isFixed": false, "color": "#0891b2",
+      "items": [
+        { "id": "sorties", "label": "Sorties & Activités", "isFixed": false },
+        { "id": "restaurants", "label": "Restaurants", "isFixed": false },
+        { "id": "vacances", "label": "Vacances", "isFixed": false }
+      ]
+    },
+    {
+      "id": "abonnements", "label": "Abonnements", "icon": "Zap",
+      "type": "expense", "isFixed": true, "color": "#0284c7",
+      "items": [
+        { "id": "icloud", "label": "iCloud", "isFixed": true },
+        { "id": "iptv", "label": "IPTV", "isFixed": true },
+        { "id": "gpt-grace", "label": "ChatGPT (Grace)", "isFixed": true }
+      ]
+    },
+    {
+      "id": "epargne", "label": "Épargne & Investissement", "icon": "TrendingUp",
+      "type": "savings", "isFixed": true, "color": "#16a34a",
+      "items": [
+        { "id": "reee", "label": "REEE", "isFixed": true },
+        { "id": "celi-1", "label": "CÉLI #1", "isFixed": true },
+        { "id": "celi-2", "label": "CÉLI #2", "isFixed": true }
+      ]
+    },
+    {
+      "id": "assurances", "label": "Assurances Vie", "icon": "Shield",
+      "type": "expense", "isFixed": true, "color": "#6366f1",
+      "items": [
+        { "id": "assurance-paterne", "label": "Assurance vie Paterne", "isFixed": true },
+        { "id": "assurance-grace", "label": "Assurance vie Grace", "isFixed": true }
+      ]
+    },
+    {
+      "id": "rentree-scolaire", "label": "Rentrée Scolaire", "icon": "BookOpen",
+      "type": "special", "isFixed": false, "color": "#d97706",
+      "items": [
+        { "id": "fournitures", "label": "Fournitures scolaires", "isFixed": false },
+        { "id": "vetements-rentree", "label": "Vêtements rentrée", "isFixed": false },
+        { "id": "livres", "label": "Livres scolaires", "isFixed": false },
+        { "id": "frais-inscription", "label": "Frais inscription", "isFixed": false },
+        { "id": "cartable", "label": "Cartable / Sac", "isFixed": false }
+      ]
+    },
+    {
+      "id": "religion", "label": "Religion / Dons", "icon": "Star",
+      "type": "expense", "isFixed": false, "color": "#854d0e",
+      "items": [
+        { "id": "dime", "label": "Dîme / Offrandes", "isFixed": false },
+        { "id": "dons", "label": "Dons divers", "isFixed": false }
+      ]
+    },
+    {
+      "id": "imprevus", "label": "Imprévus", "icon": "AlertTriangle",
+      "type": "expense", "isFixed": false, "color": "#78716c",
+      "items": [
+        { "id": "autres-imprevus", "label": "Dépenses imprévues", "isFixed": false }
+      ]
+    }
+  ],
+  "budgetPlanning": {
+    "2026-05": {
+      "income": {
+        "rafeo": 0,
+        "rafeo-special": 7093.96,
+        "pto": 123.66,
+        "ace-poe": 1516.58,
+        "tps-tvh": 266.50,
+        "autres": 0
+      },
+      "categories": {
+        "charges-fixes": {
+          "total": 2750,
+          "items": {
+            "loyer": 1895, "electricite": 50, "tel-s25": 195, "tel-16pro": 108,
+            "felix-ricard": 37, "lessives": 215, "grace-perso": 90.97,
+            "paterne-perso": 150, "netflix": 9.03
+          }
+        },
+        "transports": {
+          "total": 291,
+          "items": { "carburant": 50, "assurance-auto": 211, "bus-grace": 30 }
+        },
+        "nourriture": { "total": 700, "items": { "costco": 400, "maxi": 150, "autres-epicerie": 150 } },
+        "maison": { "total": 300, "items": { "materiaux": 300, "autres-maison": 0 } },
+        "sante": { "total": 100, "items": { "consultations": 50, "pharmacie": 50, "dentiste": 0 } },
+        "vetements": { "total": 65, "items": { "adultes": 40, "enfants": 25 } },
+        "enfants": { "total": 0, "items": { "cantine": 0, "activites": 0, "frais-scolaires": 0 } },
+        "engagements": {
+          "total": 1130,
+          "items": { "france": 580, "stephane": 400, "parents-grace": 75, "parents-paterne": 75 }
+        },
+        "loisirs": { "total": 0, "items": { "sorties": 0, "restaurants": 0, "vacances": 0 } },
+        "abonnements": { "total": 32.95, "items": { "icloud": 4.51, "iptv": 0, "gpt-grace": 28.44 } },
+        "epargne": { "total": 720, "items": { "reee": 420, "celi-1": 150, "celi-2": 150 } },
+        "assurances": { "total": 110.34, "items": { "assurance-paterne": 62.75, "assurance-grace": 47.59 } },
+        "rentree-scolaire": { "total": 0, "items": { "fournitures": 0, "vetements-rentree": 0, "livres": 0, "frais-inscription": 0, "cartable": 0 } },
+        "religion": { "total": 0, "items": { "dime": 0, "dons": 0 } },
+        "imprevus": { "total": 0, "items": { "autres-imprevus": 0 } }
+      }
+    },
+    "2026-06": {
+      "income": {
+        "rafeo": 0, "rafeo-special": 0,
+        "pto": 123.66, "ace-poe": 1516.58, "tps-tvh": 266.50, "autres": 0
+      },
+      "categories": {
+        "charges-fixes": {
+          "total": 2600,
+          "items": {
+            "loyer": 1895, "electricite": 50, "tel-s25": 195, "tel-16pro": 108,
+            "felix-ricard": 37, "lessives": 65, "grace-perso": 90.97,
+            "paterne-perso": 150, "netflix": 9.03
+          }
+        },
+        "transports": { "total": 291, "items": { "carburant": 50, "assurance-auto": 211, "bus-grace": 30 } },
+        "nourriture": { "total": 700, "items": { "costco": 400, "maxi": 150, "autres-epicerie": 150 } },
+        "maison": { "total": 300, "items": { "materiaux": 300, "autres-maison": 0 } },
+        "sante": { "total": 100, "items": { "consultations": 50, "pharmacie": 50, "dentiste": 0 } },
+        "vetements": { "total": 65, "items": { "adultes": 40, "enfants": 25 } },
+        "enfants": { "total": 0, "items": { "cantine": 0, "activites": 0, "frais-scolaires": 0 } },
+        "engagements": {
+          "total": 1130,
+          "items": { "france": 580, "stephane": 400, "parents-grace": 75, "parents-paterne": 75 }
+        },
+        "loisirs": { "total": 0, "items": { "sorties": 0, "restaurants": 0, "vacances": 0 } },
+        "abonnements": { "total": 32.95, "items": { "icloud": 4.51, "iptv": 0, "gpt-grace": 28.44 } },
+        "epargne": { "total": 720, "items": { "reee": 420, "celi-1": 150, "celi-2": 150 } },
+        "assurances": { "total": 110.34, "items": { "assurance-paterne": 62.75, "assurance-grace": 47.59 } },
+        "rentree-scolaire": { "total": 0, "items": { "fournitures": 0, "vetements-rentree": 0, "livres": 0, "frais-inscription": 0, "cartable": 0 } },
+        "religion": { "total": 0, "items": { "dime": 0, "dons": 0 } },
+        "imprevus": { "total": 0, "items": { "autres-imprevus": 0 } }
+      }
+    },
+    "2026-07": {
+      "income": {
+        "rafeo": 0, "rafeo-special": 0,
+        "pto": 123.66, "ace-poe": 1516.58, "tps-tvh": 266.50, "autres": 0
+      },
+      "categories": {
+        "charges-fixes": {
+          "total": 1887.54,
+          "items": {
+            "loyer": 1675, "electricite": 0, "tel-s25": 133.56, "tel-16pro": 78.98,
+            "felix-ricard": 0, "lessives": 0, "grace-perso": 0, "paterne-perso": 0, "netflix": 0
+          }
+        },
+        "transports": { "total": 341, "items": { "carburant": 100, "assurance-auto": 211, "bus-grace": 30 } },
+        "nourriture": { "total": 700, "items": { "costco": 400, "maxi": 150, "autres-epicerie": 150 } },
+        "maison": { "total": 300, "items": { "materiaux": 300, "autres-maison": 0 } },
+        "sante": { "total": 100, "items": { "consultations": 50, "pharmacie": 50, "dentiste": 0 } },
+        "vetements": { "total": 100, "items": { "adultes": 60, "enfants": 40 } },
+        "enfants": { "total": 0, "items": { "cantine": 0, "activites": 0, "frais-scolaires": 0 } },
+        "engagements": {
+          "total": 1370.97,
+          "items": { "france": 580, "stephane": 400, "parents-grace": 75, "parents-paterne": 75 }
+        },
+        "loisirs": { "total": 0, "items": { "sorties": 0, "restaurants": 0, "vacances": 0 } },
+        "abonnements": { "total": 32.95, "items": { "icloud": 4.51, "iptv": 0, "gpt-grace": 28.44 } },
+        "epargne": { "total": 720, "items": { "reee": 420, "celi-1": 150, "celi-2": 150 } },
+        "assurances": { "total": 110.34, "items": { "assurance-paterne": 62.75, "assurance-grace": 47.59 } },
+        "rentree-scolaire": { "total": 0, "items": {} },
+        "religion": { "total": 0, "items": { "dime": 0, "dons": 0 } },
+        "imprevus": { "total": 0, "items": { "autres-imprevus": 0 } }
+      }
+    },
+    "2026-08": {
+      "income": {
+        "rafeo": 4863.76, "rafeo-special": 0,
+        "pto": 123.66, "ace-poe": 1516.58, "tps-tvh": 0, "autres": 0
+      },
+      "categories": {
+        "charges-fixes": {
+          "total": 2803,
+          "items": {
+            "loyer": 1895, "electricite": 50, "tel-s25": 127, "tel-16pro": 108,
+            "felix-ricard": 45, "lessives": 60, "grace-perso": 100,
+            "paterne-perso": 150, "netflix": 9.10, "souscription-fibre": 68,
+            "parents-grace-fixe": 100, "parents-paterne-fixe": 100
+          }
+        },
+        "transports": { "total": 456.75, "items": { "carburant": 160, "assurance-auto": 211, "bus-grace": 85.75 } },
+        "nourriture": { "total": 1000, "items": { "costco": 500, "maxi": 300, "autres-epicerie": 200 } },
+        "maison": { "total": 0, "items": { "materiaux": 0, "autres-maison": 0 } },
+        "sante": { "total": 100, "items": { "consultations": 50, "pharmacie": 50, "dentiste": 0 } },
+        "vetements": { "total": 0, "items": { "adultes": 0, "enfants": 0 } },
+        "enfants": { "total": 0, "items": { "cantine": 0, "activites": 0, "frais-scolaires": 0 } },
+        "engagements": {
+          "total": 1000,
+          "items": { "france": 580, "stephane": 180, "marina": 240, "parents-grace": 0, "parents-paterne": 0 }
+        },
+        "loisirs": { "total": 0, "items": { "sorties": 0, "restaurants": 0, "vacances": 0 } },
+        "abonnements": { "total": 13.91, "items": { "icloud": 4.81, "iptv": 0, "gpt-grace": 0, "netflix": 9.10 } },
+        "epargne": { "total": 720, "items": { "reee": 420, "celi-1": 150, "celi-2": 150 } },
+        "assurances": { "total": 110.34, "items": { "assurance-paterne": 62.75, "assurance-grace": 47.59 } },
+        "rentree-scolaire": { "total": 500, "items": { "fournitures": 150, "vetements-rentree": 150, "livres": 100, "frais-inscription": 50, "cartable": 50 } },
+        "religion": { "total": 0, "items": { "dime": 0, "dons": 0 } },
+        "imprevus": { "total": 400, "items": { "autres-imprevus": 400 } }
+      }
+    }
+  },
+  "income": {
+    "2026-05": { "rafeo": 0, "rafeo-special": 0, "pto": 0, "ace-poe": 0, "tps-tvh": 0, "autres": 0 },
+    "2026-06": { "rafeo": 0, "rafeo-special": 0, "pto": 0, "ace-poe": 0, "tps-tvh": 0, "autres": 0 },
+    "2026-07": { "rafeo": 0, "rafeo-special": 0, "pto": 0, "ace-poe": 0, "tps-tvh": 0, "autres": 0 },
+    "2026-08": { "rafeo": 0, "rafeo-special": 0, "pto": 0, "ace-poe": 0, "tps-tvh": 0, "autres": 0 }
+  },
+  "transactions": {
+    "2026-05": [],
+    "2026-06": [],
+    "2026-07": [],
+    "2026-08": []
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "budget-famille",
+  "version": "1.0.0",
+  "description": "Budget familial Été 2026",
+  "main": "server.js",
+  "scripts": {
+    "dev": "concurrently \"node server.js\" \"cd client && npm run dev\"",
+    "start": "node server.js",
+    "build": "cd client && npm run build",
+    "postbuild": "echo Build complete - run 'npm start' to launch"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.2",
+    "node-fetch": "^2.7.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

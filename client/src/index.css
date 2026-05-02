@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body { @apply bg-slate-50 text-slate-800 font-sans m-0; }
+  #root { @apply min-h-screen; }
+}
+
+@layer components {
+  .card { @apply bg-white rounded-2xl shadow-sm border border-slate-100 p-4; }
+  .btn-primary { @apply bg-blue-600 text-white font-semibold py-2.5 px-5 rounded-xl hover:bg-blue-700 active:scale-95 transition-all text-sm; }
+  .btn-secondary { @apply bg-slate-100 text-slate-700 font-semibold py-2.5 px-5 rounded-xl hover:bg-slate-200 active:scale-95 transition-all text-sm; }
+  .btn-danger { @apply bg-red-100 text-red-600 font-semibold py-2.5 px-5 rounded-xl hover:bg-red-200 active:scale-95 transition-all text-sm; }
+  .btn-ghost { @apply text-slate-500 font-medium py-2 px-3 rounded-xl hover:bg-slate-100 active:scale-95 transition-all text-sm; }
+  .input { @apply w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white; }
+  .select { @apply w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white; }
+  .label { @apply block text-xs font-semibold text-slate-500 mb-1 uppercase tracking-wide; }
+  .badge-green { @apply text-xs font-bold px-2 py-0.5 rounded-full bg-green-100 text-green-700; }
+  .badge-amber { @apply text-xs font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-700; }
+  .badge-red { @apply text-xs font-bold px-2 py-0.5 rounded-full bg-red-100 text-red-700; }
+  .badge-blue { @apply text-xs font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700; }
+  .badge-purple { @apply text-xs font-bold px-2 py-0.5 rounded-full bg-purple-100 text-purple-700; }
+  .section-title { @apply text-xs font-bold uppercase tracking-widest text-slate-400 mb-3; }
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+
+.pb-safe { padding-bottom: calc(5rem + env(safe-area-inset-bottom)); }
