@@ -5,7 +5,8 @@ import {
   addTransaction as apiAdd,
   deleteTransaction as apiDelete,
   updateIncome as apiIncome,
-  updateBudget as apiBudget
+  updateBudget as apiBudget,
+  updateCategories as apiUpdateCategories
 } from '../utils/api'
 
 const AppContext = createContext(null)
@@ -41,6 +42,8 @@ function reducer(state, action) {
         ...state,
         budgetPlanning: { ...state.budgetPlanning, [action.month]: action.budget }
       }
+    case 'UPDATE_CATEGORIES':
+      return { ...state, categories: action.categories }
     case 'SYNC_ERROR':
       return { ...state, syncError: action.error }
     default:
@@ -115,6 +118,11 @@ export function AppProvider({ children }) {
     dispatch({ type: 'UPDATE_BUDGET', month, budget })
   }, [])
 
+  const updateCategories = useCallback(async (categories) => {
+    await apiUpdateCategories(categories)
+    dispatch({ type: 'UPDATE_CATEGORIES', categories })
+  }, [])
+
   // ─── Export / Import ────────────────────────────────────────────────────────
   const exportData = useCallback(() => {
     const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' })
@@ -136,7 +144,7 @@ export function AppProvider({ children }) {
       ...state,
       months: state.config?.period?.months || [],
       monthLabels: state.config?.period?.labels || {},
-      addTransaction, removeTransaction, updateIncome, updateBudget,
+      addTransaction, removeTransaction, updateIncome, updateBudget, updateCategories,
       exportData, importData
     }}>
       {children}

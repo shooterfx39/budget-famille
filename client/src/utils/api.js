@@ -73,6 +73,10 @@ export async function updateBudget(month, budget) {
   })
 }
 
+export async function updateCategories(categories) {
+  await patch(d => { d.categories = categories; return d })
+}
+
 // ─── OCR reçu (Vercel serverless function) ───────────────────────────────────
 
 export async function scanReceipt(imageBase64, mediaType) {
