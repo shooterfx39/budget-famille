@@ -28,7 +28,7 @@ function uid() {
 
 // ── Carte catégorie triable ──────────────────────────────────────────────────
 function SortableCategory({
-  cat, total, onChangeTotal, isExpanded, onToggle,
+  cat, itemValues, onChangeItemVal, isExpanded, onToggle,
   editingCat, editCatLabel, setEditCatLabel, catInputRef,
   onStartRenameCat, onSaveRenameCat, onCancelRenameCat, onDeleteCat,
   editingItem, editItemLabel, setEditItemLabel, itemInputRef,
@@ -46,13 +46,14 @@ function SortableCategory({
     zIndex: isDragging ? 50 : 'auto'
   }
 
+  // Total = somme des lignes visibles uniquement
+  const catTotal = (cat.items || []).reduce((s, item) => s + (itemValues[item.id] || 0), 0)
   const isEditingCat = editingCat === cat.id
 
   return (
     <div ref={setNodeRef} style={style} className="card overflow-hidden">
       {/* En-tête */}
       <div className="flex items-center gap-2">
-        {/* Poignée drag */}
         <button {...attributes} {...listeners}
           className="cursor-grab active:cursor-grabbing p-1 text-slate-300 hover:text-slate-500 flex-shrink-0 touch-none">
           <GripVertical size={18} />
@@ -60,7 +61,6 @@ function SortableCategory({
 
         <div className="w-3 h-3 rounded-full flex-shrink-0" style={{ backgroundColor: cat.color }} />
 
-        {/* Nom catégorie */}
         {isEditingCat ? (
           <div className="flex items-center gap-1 flex-1">
             <input ref={catInputRef} value={editCatLabel}
@@ -83,7 +83,6 @@ function SortableCategory({
           </div>
         )}
 
-        {/* Actions + montant */}
         {!isEditingCat && (
           <div className="flex items-center gap-1 flex-shrink-0">
             <button onClick={e => onStartRenameCat(e, cat)}
@@ -94,6 +93,7 @@ function SortableCategory({
               className="w-7 h-7 rounded-lg bg-slate-100 hover:bg-red-100 flex items-center justify-center">
               <Trash2 size={12} className="text-slate-400 hover:text-red-500" />
             </button>
+            <span className="font-black text-sm text-slate-800 ml-1">{fmt(catTotal)}</span>
             <button onClick={() => onToggle(cat.id)}>
               {isExpanded ? <ChevronUp size={16} className="text-slate-400" /> : <ChevronDown size={16} className="text-slate-400" />}
             </button>
@@ -101,38 +101,20 @@ function SortableCategory({
         )}
       </div>
 
-      {/* Montant — toujours visible sous l'en-tête */}
-      {!isEditingCat && (
-        <div className="flex items-center gap-2 mt-2 pl-8">
-          <span className="text-xs text-slate-500 flex-1">Montant prévu ($)</span>
-          <div className="relative w-36">
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-bold">$</span>
-            <input
-              type="number" min="0" step="0.01"
-              value={total === 0 ? '' : total}
-              onChange={e => onChangeTotal(cat.id, e.target.value)}
-              className="input text-sm font-black text-right pr-3 pl-7 py-2 w-full"
-              placeholder="0.00"
-            />
-          </div>
-        </div>
-      )}
-
-      {/* Lignes (structure uniquement) */}
+      {/* Lignes avec montants */}
       {isExpanded && !isEditingCat && (
-        <div className="mt-3 pt-3 border-t border-slate-100 space-y-1">
-          <p className="text-[10px] text-slate-400 uppercase tracking-widest font-bold pl-2 mb-2">
-            Lignes de la catégorie (structure — communes à tous les mois)
-          </p>
+        <div className="mt-3 pt-3 border-t border-slate-100 space-y-2">
 
           {(cat.items || []).length === 0 && (
-            <p className="text-xs text-slate-400 text-center py-2">Aucune ligne</p>
+            <p className="text-xs text-slate-400 text-center py-2">Aucune ligne — ajoutez-en une ci-dessous</p>
           )}
 
           {(cat.items || []).map(item => {
+            const v = itemValues[item.id] || 0
             const isEditingThisItem = editingItem?.catId===cat.id && editingItem?.itemId===item.id
+
             return (
-              <div key={item.id} className="flex items-center gap-2 pl-2 py-1 rounded-lg hover:bg-slate-50">
+              <div key={item.id} className="flex items-center gap-2 pl-2 py-0.5 rounded-lg hover:bg-slate-50">
                 {isEditingThisItem ? (
                   <div className="flex items-center gap-1 flex-1">
                     <input ref={itemInputRef} value={editItemLabel}
@@ -148,16 +130,25 @@ function SortableCategory({
                   </div>
                 ) : (
                   <>
-                    <span className="w-1.5 h-1.5 rounded-full bg-slate-300 flex-shrink-0 ml-1" />
-                    <span className="text-xs text-slate-600 flex-1">{item.label}</span>
+                    <span className="text-xs text-slate-600 flex-1 truncate">{item.label}</span>
                     <button onClick={e => onStartRenameItem(e, cat.id, item)}
-                      className="w-6 h-6 rounded hover:bg-blue-100 flex items-center justify-center">
+                      className="w-6 h-6 rounded hover:bg-blue-100 flex items-center justify-center flex-shrink-0">
                       <Pencil size={10} className="text-slate-400" />
                     </button>
                     <button onClick={e => onDeleteItem(e, cat.id, item.id)}
-                      className="w-6 h-6 rounded hover:bg-red-100 flex items-center justify-center">
+                      className="w-6 h-6 rounded hover:bg-red-100 flex items-center justify-center flex-shrink-0">
                       <Trash2 size={10} className="text-slate-400 hover:text-red-500" />
                     </button>
+                    <div className="relative w-28 flex-shrink-0">
+                      <span className="absolute left-2 top-1/2 -translate-y-1/2 text-slate-400 text-xs">$</span>
+                      <input
+                        type="number" min="0" step="0.01"
+                        value={v === 0 ? '' : v}
+                        onChange={e => onChangeItemVal(cat.id, item.id, e.target.value)}
+                        className="input text-sm text-right p-1.5 pl-5 w-full"
+                        placeholder="0.00"
+                      />
+                    </div>
                   </>
                 )}
               </div>
@@ -180,7 +171,7 @@ function SortableCategory({
             </div>
           ) : (
             <button onClick={e => onStartAddItem(e, cat.id)}
-              className="flex items-center gap-1 text-xs text-blue-600 font-semibold pl-2 py-1">
+              className="flex items-center gap-1 text-xs text-blue-600 font-semibold pl-2 py-1 hover:text-blue-700">
               <Plus size={13} /> Ajouter une ligne
             </button>
           )}
@@ -198,21 +189,19 @@ export default function BudgetSetup() {
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
 
-  // Montants par catégorie pour le mois sélectionné
-  const [catTotals, setCatTotals] = useState({})
+  // itemValues : { catId: { itemId: montant } } — chargé depuis Supabase à chaque changement de mois
+  const [itemValues, setItemValues] = useState({})
 
-  // Charger les montants depuis Supabase quand le mois change
   useEffect(() => {
     const plan = budgetPlanning?.[selectedMonth]
-    if (plan?.categories) {
-      const loaded = {}
-      ;(categories||[]).forEach(cat => {
-        loaded[cat.id] = plan.categories[cat.id]?.total || 0
+    const loaded = {}
+    ;(categories || []).forEach(cat => {
+      loaded[cat.id] = {}
+      ;(cat.items || []).forEach(item => {
+        loaded[cat.id][item.id] = plan?.categories?.[cat.id]?.items?.[item.id] || 0
       })
-      setCatTotals(loaded)
-    } else {
-      setCatTotals({})
-    }
+    })
+    setItemValues(loaded)
   }, [selectedMonth, budgetPlanning, categories])
 
   const [editingCat, setEditingCat] = useState(null)
@@ -236,12 +225,20 @@ export default function BudgetSetup() {
     useSensor(TouchSensor, { activationConstraint: { delay: 200, tolerance: 8 } })
   )
 
-  const grandTotal = (categories||[]).reduce((s, cat) => s + (catTotals[cat.id] || 0), 0)
+  // Grand total = somme des totaux de chaque catégorie
+  const grandTotal = (categories || []).reduce((s, cat) => {
+    const vals = itemValues[cat.id] || {}
+    const catTotal = (cat.items || []).reduce((cs, item) => cs + (vals[item.id] || 0), 0)
+    return s + catTotal
+  }, 0)
 
   // ── Catégories ─────────────────────────────────────────────────────────────
 
-  const handleChangeCatTotal = (catId, value) => {
-    setCatTotals(prev => ({ ...prev, [catId]: parseFloat(value) || 0 }))
+  const handleChangeItemVal = (catId, itemId, value) => {
+    setItemValues(prev => ({
+      ...prev,
+      [catId]: { ...(prev[catId] || {}), [itemId]: parseFloat(value) || 0 }
+    }))
   }
 
   const startRenameCat = (e, cat) => {
@@ -253,7 +250,7 @@ export default function BudgetSetup() {
 
   const saveRenameCat = async (catId) => {
     if (!editCatLabel.trim()) { setEditingCat(null); return }
-    await updateCategories((categories||[]).map(c => c.id===catId ? {...c,label:editCatLabel.trim()} : c))
+    await updateCategories((categories||[]).map(c => c.id===catId ? {...c, label:editCatLabel.trim()} : c))
     setEditingCat(null)
   }
 
@@ -261,7 +258,6 @@ export default function BudgetSetup() {
     e.stopPropagation()
     if (!window.confirm('Supprimer cette catégorie ?')) return
     await updateCategories((categories||[]).filter(c => c.id!==catId))
-    setCatTotals(prev => { const n={...prev}; delete n[catId]; return n })
   }
 
   const addCategory = async () => {
@@ -291,7 +287,7 @@ export default function BudgetSetup() {
     if (!editItemLabel.trim() || !editingItem) { setEditingItem(null); return }
     await updateCategories((categories||[]).map(c =>
       c.id===editingItem.catId
-        ? {...c, items:(c.items||[]).map(it => it.id===editingItem.itemId ? {...it,label:editItemLabel.trim()} : it)}
+        ? {...c, items:(c.items||[]).map(it => it.id===editingItem.itemId ? {...it, label:editItemLabel.trim()} : it)}
         : c
     ))
     setEditingItem(null)
@@ -326,10 +322,12 @@ export default function BudgetSetup() {
     const budgetData = {
       ...plan,
       categories: Object.fromEntries(
-        (categories||[]).map(cat => [
-          cat.id,
-          { ...(plan.categories?.[cat.id] || {}), total: catTotals[cat.id] || 0 }
-        ])
+        (categories||[]).map(cat => {
+          const vals = itemValues[cat.id] || {}
+          const items = Object.fromEntries((cat.items||[]).map(item => [item.id, vals[item.id] || 0]))
+          const total = Object.values(items).reduce((s, v) => s + v, 0)
+          return [cat.id, { ...(plan.categories?.[cat.id] || {}), total, items }]
+        })
       )
     }
     setSaving(true)
@@ -359,7 +357,7 @@ export default function BudgetSetup() {
         ))}
       </div>
 
-      {/* Total général + bouton enregistrer */}
+      {/* Total + bouton enregistrer en haut */}
       <div className="card bg-gradient-to-br from-blue-600 to-blue-700 text-white mb-4 border-0 p-4">
         <div className="flex items-center justify-between">
           <div>
@@ -367,20 +365,12 @@ export default function BudgetSetup() {
             <p className="text-3xl font-black">{fmt(grandTotal)}</p>
           </div>
           <button onClick={saveBudget} disabled={saving}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-sm transition-all
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-sm transition-all flex-shrink-0
               ${saved ? 'bg-green-400 text-white' : 'bg-white text-blue-700 hover:bg-blue-50'}`}>
             {saving ? <Loader size={15} className="animate-spin"/> : <Save size={15}/>}
-            {saving ? 'Enregistrement...' : saved ? '✓ Enregistré!' : 'Enregistrer'}
+            {saving ? 'Enreg...' : saved ? '✓ Sauvé!' : 'Enregistrer'}
           </button>
         </div>
-      </div>
-
-      {/* Info */}
-      <div className="card bg-amber-50 border border-amber-200 mb-4 p-3">
-        <p className="text-xs text-amber-700">
-          💡 <strong>Montants</strong> : indépendants par mois — modifiez et cliquez Enregistrer.<br/>
-          <strong>Lignes</strong> (ouvrir ↓) : structure commune à tous les mois. Glissez ⠿ pour réordonner.
-        </p>
       </div>
 
       {/* Liste triable */}
@@ -390,8 +380,8 @@ export default function BudgetSetup() {
             {(categories||[]).map(cat => (
               <SortableCategory
                 key={cat.id} cat={cat}
-                total={catTotals[cat.id] || 0}
-                onChangeTotal={handleChangeCatTotal}
+                itemValues={itemValues[cat.id] || {}}
+                onChangeItemVal={handleChangeItemVal}
                 isExpanded={!!expanded[cat.id]}
                 onToggle={id => setExpanded(e => ({...e,[id]:!e[id]}))}
                 editingCat={editingCat} editCatLabel={editCatLabel}
@@ -443,13 +433,13 @@ export default function BudgetSetup() {
         </button>
       )}
 
-      {/* Bouton enregistrer bas de page */}
+      {/* Bouton enregistrer bas */}
       <button onClick={saveBudget} disabled={saving}
         className={`w-full py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg transition-all
           ${saved ? 'bg-green-500 text-white' : 'btn-primary'}`}>
         {saving ? <><Loader size={16} className="animate-spin"/>Enregistrement...</>
          : saved ? '✓ Enregistré!'
-         : <><Save size={16}/>Enregistrer le budget — {monthLabels[selectedMonth]}</>}
+         : <><Save size={16}/>Enregistrer — {monthLabels[selectedMonth]}</>}
       </button>
     </div>
   )
